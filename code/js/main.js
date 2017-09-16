@@ -404,7 +404,7 @@ function mvpradius(name) {
     if (mvpresults(d3.select("#year").property("value")).indexOf(name) > -1) {
       	return 6;
     } else {
-      	return 3;
+      	return 2;
     }
 }
 
