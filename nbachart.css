@@ -81,7 +81,7 @@ div.tooltip {
     right: 10px;
     width: 8px;
     height: 8px;
-    background: url("/img/arrow.png") no-repeat;
+    background: url("arrow.png") no-repeat;
     top: 50%;
     margin-top: -4px;
     margin-bottom: 5px;
