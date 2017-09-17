@@ -69,7 +69,7 @@ function drawScatter() {
       .range([padding, width - 10]);
 
     var yScale = d3.scaleLinear()
-	  .domain([0.35, 0.85])
+	  .domain([0.3, 0.8])
 	  .range([height - padding, 10]);
 
     var xAxis = d3.axisBottom(xScale);
@@ -133,7 +133,7 @@ function drawScatter() {
         return xval;
         })
       .attr("cy", function(d) {
-      	var yval = yScale(d.eFG) - padding;
+      	var yval = yScale(d.eFG);
       	if (d.name == d3.select("#player").property("value")) {
       		player_coord[1] = yval;
       	}
