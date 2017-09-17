@@ -37,6 +37,7 @@ drawScatter()
 
 d3.select('#year')
   .on('change', function() {
+    refreshdropdown();
     drawScatter();
   });
 
@@ -341,6 +342,30 @@ function drawStackedBar(name) {
 				.attr("fill", colors[i]);
 		}
 	});
+}
+
+// refresh dropdown
+function refreshdropdown() {
+  var dropdown = d3.select("#player");
+
+  dropdown.selectAll("*").remove()
+
+  d3.csv("data/" + d3.select("#year").property("value") + "_closestdefender.csv", function(data) {
+    var data = data.filter(function(d) {
+        if (d.dis == "0-2 Feet") {
+          return d;
+        }
+      });
+    data = data.sort(function(a,b){return d3.ascending(a.name, b.name)});
+    dropdown.selectAll("option").data(data).enter().append("option")
+      .text(function(d){return d.name;})
+      .attr("value", function(d){return d.name;})
+      .attr("selected", function(d){
+        if (d.name == "LeBron James") {
+          return "selected";
+        }
+      });
+  });
 }
 
 
