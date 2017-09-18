@@ -1,16 +1,16 @@
 p {
-    font-family: 'Abel', san-serif;
+    font-family: 'Abel', sans-serif;
     font-size: 25px;
     color: black;
 }
 
 ul {
-    font-family: 'Abel', san-serif;
+    font-family: 'Abel', sans-serif;
     font-size: 12pt;
 }
 
 h2 {
-    font-family: 'Abel', san-serif;
+    font-family: 'Abel', sans-serif;
     font-size: 40px;
     margin-top:20px;
     color: black;
@@ -36,7 +36,7 @@ div.tooltip {
     padding: 2px;               
     font-size: 15px;    
     font-weight: 700;
-    font-family: "Abel", san-serif; 
+    font-family: "Abel", sans-serif; 
     color: white;
     background: black; 
     border: 0px;                
