@@ -170,7 +170,29 @@ function drawScatter() {
 	      		}
 	      	}
           })
-          drawStackedBar(d.name);
+
+        // draw connecting lines
+        var point_coordinates = [[0,0],[0,0],[0,0],[0,0],0];
+        var counter = 0;
+        svg_scatter.selectAll(".player").each(function() {
+          selcircle = d3.select(this);
+          if (selcircle.attr("id") == nametoid(d.name)) {
+            point_coordinates[counter][0] = d3.select(this).attr("cx");
+            point_coordinates[counter][1] = d3.select(this).attr("cy");
+            counter += 1
+            point_coordinates[4] = d3.select(this).style("fill")
+          }
+        });
+
+        for (i = 0; i < 3; i++) {
+          svg_scatter.append("path").datum(data)
+              .attr("class", "line")
+              .attr("stroke", function(){return point_coordinates[4];})
+              .attr("stroke-width", 2)
+              .attr("d", function() {
+                var loc = ("M"+point_coordinates[i][0]+" "+point_coordinates[i][1]+"L"+point_coordinates[i+1][0]+" "+point_coordinates[i+1][1])
+                return loc;})
+        }
 	  	})
 
       .on("mouseout", function(d) {   
@@ -180,7 +202,9 @@ function drawScatter() {
           svg_scatter.selectAll(".player")
 		      .style("fill-opacity", function(d) {return mvpopacity(nametoid(d.name));})
 		      .attr("r", function(d) {return mvpradius(nametoid(d.name));});
-        })
+
+          svg_scatter.selectAll(".line").remove();
+        });
 
     // initial tooltip
     div.html(player_coord[2])
@@ -224,7 +248,6 @@ function drawScatter() {
 
   //draw initial stack plot
   var stack_player = d3.select("#player").property("value");
-  console.log(typeof stack_player);
 
   if (stack_player.length < 1) {
   		drawStackedBar("LeBron James");
