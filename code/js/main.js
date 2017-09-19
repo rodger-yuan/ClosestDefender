@@ -148,6 +148,7 @@ function drawScatter() {
 
       // tooltips
       .on("mouseover", function(d) { 
+        svg_scatter.selectAll(".line").remove();
 	      div.transition()    
 	          .duration(200)    
 	          .style("opacity", 0.9);    
