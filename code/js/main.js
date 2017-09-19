@@ -172,27 +172,8 @@ function drawScatter() {
           })
 
         // draw connecting lines
-        var point_coordinates = [[0,0],[0,0],[0,0],[0,0],0];
-        var counter = 0;
-        svg_scatter.selectAll(".player").each(function() {
-          selcircle = d3.select(this);
-          if (selcircle.attr("id") == nametoid(d.name)) {
-            point_coordinates[counter][0] = d3.select(this).attr("cx");
-            point_coordinates[counter][1] = d3.select(this).attr("cy");
-            counter += 1
-            point_coordinates[4] = d3.select(this).style("fill")
-          }
-        });
-
-        for (i = 0; i < 3; i++) {
-          svg_scatter.append("path").datum(data)
-              .attr("class", "line")
-              .attr("stroke", function(){return point_coordinates[4];})
-              .attr("stroke-width", 2)
-              .attr("d", function() {
-                var loc = ("M"+point_coordinates[i][0]+" "+point_coordinates[i][1]+"L"+point_coordinates[i+1][0]+" "+point_coordinates[i+1][1])
-                return loc;})
-        }
+        drawConnectingLines(d.name);
+        drawStackedBar(d.name);
 	  	})
 
       .on("mouseout", function(d) {   
@@ -211,6 +192,13 @@ function drawScatter() {
     	.style("left", player_coord[0] + 10 + "px")
     	.style("top", player_coord[1] + 150 + "px")
     	.style("opacity", 0.9);
+
+    // draw connecting lines
+    data.forEach(function(d) {
+      if (d.name == d3.select("#player").property("value") && d.dis == "0-2 Feet") {
+        drawConnectingLines(d.name)
+      }
+    })
 
     // key
     svg_scatter.append("line")
@@ -391,6 +379,29 @@ function refreshdropdown() {
   });
 }
 
+function drawConnectingLines(name) {
+  var point_coordinates = [[0,0],[0,0],[0,0],[0,0],0];
+        var counter = 0;
+        svg_scatter.selectAll(".player").each(function() {
+          selcircle = d3.select(this);
+          if (selcircle.attr("id") == nametoid(name)) {
+            point_coordinates[counter][0] = d3.select(this).attr("cx");
+            point_coordinates[counter][1] = d3.select(this).attr("cy");
+            counter += 1
+            point_coordinates[4] = d3.select(this).style("fill")
+          }
+        });
+
+        for (i = 0; i < 3; i++) {
+          svg_scatter.append("path").datum([])
+              .attr("class", "line")
+              .attr("stroke", function(){return point_coordinates[4];})
+              .attr("stroke-width", 2)
+              .attr("d", function() {
+                var loc = ("M"+point_coordinates[i][0]+" "+point_coordinates[i][1]+"L"+point_coordinates[i+1][0]+" "+point_coordinates[i+1][1])
+                return loc;})
+        }
+}
 
 // Misc. FUnctions
 function avgeFG(year) {
