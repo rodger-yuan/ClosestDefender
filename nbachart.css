@@ -17,9 +17,10 @@ h2 {
 }
 
 hr {
-	margin-left: 100px;
-	margin-right: 100px;
+    margin: auto;
+    width: 900px;
 	margin-top: 0px;
+    margin-bottom: 5px;
 	border-width: 2px;
 	border-color: black;
 }
