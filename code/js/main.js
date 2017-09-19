@@ -178,14 +178,17 @@ function drawScatter() {
 	  	})
 
       .on("mouseout", function(d) {   
-          div.transition()    
-              .duration(500)    
-              .style("opacity", 0); 
-          svg_scatter.selectAll(".player")
-		      .style("fill-opacity", function(d) {return mvpopacity(nametoid(d.name));})
-		      .attr("r", function(d) {return mvpradius(nametoid(d.name));});
-
-          svg_scatter.selectAll(".line").remove();
+          svg_scatter.selectAll(".player").each(function(){
+          var selcircle = d3.select(this);
+            if (selcircle.attr("id") == nametoid(d.name)) {
+              selcircle.attr("r", 8)
+                .style("fill-opacity", 1)
+                .raise();
+            } else {
+    		      selcircle.style("fill-opacity", function(d) {return mvpopacity(nametoid(d.name));})
+    		      .attr("r", function(d) {return mvpradius(nametoid(d.name));});
+              }
+            });
         });
 
     // initial tooltip
